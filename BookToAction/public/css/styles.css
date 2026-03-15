@@ -1,0 +1,68 @@
+/*
+================================================
+Global Styles
+
+These styles apply to the entire application.
+
+You can add more components following the
+same format.
+================================================
+*/
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+/*
+Navigation Bar Styling
+*/
+
+nav {
+  background: #222;
+  color: white;
+  padding: 15px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/*
+Container Layout
+
+This keeps content centered.
+*/
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+/*
+Reusable Button Style
+*/
+
+.btn {
+  background: #4CAF51;
+  color: black;
+  padding: 15px;
+  text-decoration: none;
+}
+
+/*
+Book Card Component
+
+You can create more card-style UI
+elements using this structure.
+*/
+
+.book-card {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+}
