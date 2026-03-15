@@ -118,9 +118,26 @@ folder for better architecture.
 
 app.get("/", (req, res) => {
 
-  res.send("BookToAction server is running 🚀");
+  res.render("pages/home");
 
 });
+
+
+//Additional Routes ----------------------------------------
+
+app.get("/dashboard", (req, res) => {
+  res.render("pages/dashboard");
+});
+
+app.get("/add-book", (req, res) => {
+  res.render("pages/addBook");
+});
+
+app.get("/books/:id", (req, res) => {
+  res.render("pages/bookDetail");
+});
+
+//END ------------------------------------------------
 
 /*
 -----------------------------------------------

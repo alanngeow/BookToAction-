@@ -1,0 +1,35 @@
+<%- include("../partials/header") %>
+
+<section class="container">
+
+<h1>Add a Book</h1>
+
+<!--
+Form Explanation
+
+This form sends data to the server using POST.
+
+Later Express will handle this request
+and store the book in the database.
+-->
+
+<form action="/add-book" method="POST">
+
+<label>Book Title</label>
+<input type="text" name="title" required>
+
+<label>Author</label>
+<input type="text" name="author">
+
+<label>Your Notes</label>
+<textarea name="notes" id="notes"></textarea>
+
+<p id="charCount">0 characters</p>
+
+<button type="submit">Save Book</button>
+
+</form>
+
+</section>
+
+<%- include("../partials/footer") %>
