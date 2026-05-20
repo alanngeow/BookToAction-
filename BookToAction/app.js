@@ -25,11 +25,15 @@ simple and move logic into separate folders.
 
 ================================================
 */
-
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
+import bookRouter from "./routes/bookRoutes.js";
+import { getHome } from "./controllers/bookController.js";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import pool from "./config/db.js";
 
 /*
 -----------------------------------------------
@@ -105,39 +109,16 @@ Any new frontend assets should go here.
 
 app.use(express.static(path.join(__dirname, "public")));
 
-/*
------------------------------------------------
-Temporary Test Route
+//Home route should be defined BEFORE the router so it's matched first
+app.get("/", getHome);
+//
 
-This is just to confirm the server is running.
+// Route Modules
+//Book-related routes are handled in routes/bookRoutes.js
 
-Later we will move routes into the /routes
-folder for better architecture.
------------------------------------------------
-*/
-
-app.get("/", (req, res) => {
-
-  res.render("pages/home");
-
-});
+app.use("/", bookRouter);
 
 
-//Additional Routes ----------------------------------------
-
-app.get("/dashboard", (req, res) => {
-  res.render("pages/dashboard");
-});
-
-app.get("/add-book", (req, res) => {
-  res.render("pages/addBook");
-});
-
-app.get("/books/:id", (req, res) => {
-  res.render("pages/bookDetail");
-});
-
-//END ------------------------------------------------
 
 /*
 -----------------------------------------------
