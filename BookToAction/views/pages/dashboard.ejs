@@ -6,31 +6,39 @@ Dashboard Page
 
 Purpose:
 Displays all books added by the user.
-
-Later this page will dynamically display
-books retrieved from PostgreSQL.
+Books are retrieved from PostgreSQL via
+the getDashboard controller.
 ================================================
 -->
 
 <section class="container">
 
-<h1>Your Books</h1>
+  <h1>Your Books</h1>
 
-<div class="book-list">
+  <a href="/add-book" class="btn">Add New Book</a>
 
-<!-- Placeholder book card -->
+  <div class="book-list">
 
-<div class="book-card">
+    <!-- Check if there are any books -->
+    <% if (books.length === 0) { %>
+      <p>No books yet. Add your first book!</p>
 
-<h3>Atomic Habits</h3>
+    <% } else { %>
 
-<p>Author: James Clear</p>
+      <!-- Loop through each book from the database -->
+      <% books.forEach(book => { %>
 
-<a href="/books/1">View Details</a>
+        <div class="book-card">
+          <h3> <%= book.title %> </h3>
+          <p>Author: <%= book.author %></p>
+          <a href="/books/<%= book.id%>">View Details</a>
+        </div>
 
-</div>
+      <% }); %>
 
-</div>
+    <% } %>
+
+  </div>
 
 </section>
 

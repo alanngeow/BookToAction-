@@ -1,23 +1,34 @@
+// Import model functions
+import {getAllBooks, getBookById, createBook} from "../models/bookModel.js";
 
-
-// Renders the home page
+// Renders home page
 const getHome = (req, res) => {
   res.render("pages/home");
 };
 
-// Renders the dashboard page
-const getDashboard = (req, res) => {
-  res.render("pages/dashboard");
+// Gets all books and passes to dashboard view
+const getDashboard = async (req, res) => {
+  const books = await getAllBooks();
+  res.render("pages/dashboard", { books: books });
 };
 
-// Renders the add book page
+// Gets one book by id and passes to detail view
+const getBookDetail = async (req, res) => {
+  const id = req.params.id; // hint: how do you get the id from the URL?
+  const book = await getBookById(id);
+  res.render("pages/bookDetail", {book: book });
+};
+
+// Renders the add book form
 const getAddBook = (req, res) => {
   res.render("pages/addBook");
 };
 
-// Renders the book detail page
-const getBookById = (req, res) => {
-  res.render("pages/bookDetail");
+// Handles form submission - creates a new book
+const postCreateBook = async (req, res) => {
+  const { title, author, notes } = req.body; // hint: where does form data live?
+  await createBook(title, author, notes);
+  res.redirect("/dashboard"); // hint: where should the user go after adding a book?
 };
 
-export { getHome, getDashboard, getAddBook, getBookById };
+export { getHome, getDashboard, getBookDetail, getAddBook, postCreateBook };
