@@ -2,15 +2,29 @@
 
 <section class="container">
 
-<h1><%= book.title %></h1>
+  <h1><%= book.title %></h1>
+  <p>Author: <%= book.author %></p>
 
-<p>Author: <%= book.author %></p>
+  <h2>Your Notes</h2>
+  <p><%= book.notes %></p>
 
-<h2>Your Notes</h2>
+  <!-- Only show button if AI insights don't exist yet -->
+  <% if (!book.ai_summary) { %>
+    <form action="/books/<%= book.id %>/generate" method="POST">
+      <button type="submit" class="btn">Generate Insights</button>
+    </form>
+  <% } %>
 
-<p>
-<%= book.notes%>
-</p>
+  <!-- Only show insights if they exist -->
+  <% if (book.ai_summary) { %>
+    <h2>AI Summary</h2>
+    <p><%= book.ai_summary %></p>
+
+    <h2>30-Day Action Plan</h2>
+    <p><%= book.action_plan %></p>
+  <% } %>
+
+  <a href="/dashboard" class="btn">Back to Dashboard</a>
 
 </section>
 

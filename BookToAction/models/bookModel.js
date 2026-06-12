@@ -22,4 +22,14 @@ const createBook = async (title, author, notes) => {
   return result.rows[0];
 };
 
-export { getAllBooks, getBookById, createBook };
+// Update a book's AI generated content
+// Called after aiService returns insights
+const saveInsights = async (id, summary, actionPlan) => {
+  const result = await pool.query(
+    "UPDATE books SET ai_summary = $1, action_plan = $2 WHERE id = $3 RETURNING *",
+    [summary, actionPlan, id]
+  );
+  return result.rows[0];
+};
+
+export { getAllBooks, getBookById, createBook, saveInsights};

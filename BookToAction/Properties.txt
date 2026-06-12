@@ -1,0 +1,7 @@
+book.id
+book.title
+book.author
+book.notes
+book.ai_summary
+book.action_plan
+book.created_at
