@@ -32,4 +32,14 @@ const saveInsights = async (id, summary, actionPlan) => {
   return result.rows[0];
 };
 
-export { getAllBooks, getBookById, createBook, saveInsights};
+
+// Delete a book by id
+const deleteBook = async (id) => {
+  const result = await pool.query(
+    "DELETE FROM books where id=$1 RETURNING *",
+    [id]
+  );
+  return  result.rows[0];
+};
+
+export { getAllBooks, getBookById, createBook, saveInsights, deleteBook};

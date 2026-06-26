@@ -28,11 +28,16 @@ the getDashboard controller.
       <!-- Loop through each book from the database -->
       <% books.forEach(book => { %>
 
-        <div class="book-card">
-          <h3> <%= book.title %> </h3>
-          <p>Author: <%= book.author %></p>
-          <a href="/books/<%= book.id%>">View Details</a>
-        </div>
+    <div class="book-card">
+      <h3><%= book.title %></h3>
+      <p>Author: <%= book.author %></p>
+      <a href="/books/<%= book.id %>">View Details</a>
+
+      <!-- Delete button — uses POST form since HTML only supports GET and POST -->
+      <form action="/books/<%= book.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>  
 
       <% }); %>
 

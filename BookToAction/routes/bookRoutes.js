@@ -7,7 +7,7 @@
 // Express is required to use express.Router()
 import express from "express";
 
-import { getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights } from "../controllers/bookController.js";
+import { getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController } from "../controllers/bookController.js";
 
 
 const router = express.Router();
@@ -21,5 +21,7 @@ router.post("/add-book", postCreateBook);        // POST route for form submissi
 router.get("/books/:id", getBookDetail);
 
 router.post("/books/:id/generate", generateBookInsights);
+
+router.post("/books/:id/delete", deleteBookController);
 
 export default router;

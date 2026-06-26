@@ -1,5 +1,5 @@
 // Import model functions
-import {getAllBooks, getBookById, createBook, saveInsights} from "../models/bookModel.js";
+import {getAllBooks, getBookById, createBook, saveInsights, deleteBook} from "../models/bookModel.js";
 import {generateInsights} from "../services/aiService.js";
 
 // Renders home page
@@ -54,9 +54,16 @@ const generateBookInsights = async (req, res) => {
   await saveInsights(id, insights.summary, insights.actionPlan);
 
   // Redirect back to the book detail page
-  res.redirect('/books/${id}');
+ res.redirect(`/books/${id}`);
 
 };
 
+// Handles POST /books/:id/delete
+const deleteBookController = async (req, res) => {
+  const id = req.params.id;
+  await deleteBook(id);
+  res.redirect("/dashboard");
+};
 
-export { getHome, getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights };
+
+export { getHome, getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController };

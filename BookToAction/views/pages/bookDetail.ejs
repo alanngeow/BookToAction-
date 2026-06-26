@@ -42,7 +42,10 @@
 <script type="module" src="/react/assets/main-Bq1pW3Mf.js"></script>
   <% } %>
 
-
+<!-- Delete button -->
+<form action="/books/<%= book.id %>/delete" method="POST">
+  <button type="submit" class="btn btn-danger">Delete Book</button>
+</form>
 
   <a href="/dashboard" class="btn">Back to Dashboard</a>
 
