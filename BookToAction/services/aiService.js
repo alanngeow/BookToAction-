@@ -49,12 +49,18 @@ const generateInsights = async (title, author, notes) => {
     ]
   });
 
-  // Extract the text from the response
-  const text = response.content[0].text;
+// Extract the text from the response
+const text = response.content[0].text;
 
-  // Return the full text for now
-  // We will parse it into summary and actionPlan next
-  return text;
-};
+// Parse the response into summary and action plan
+// Split on ACTION_PLAN: to separate the two sections
+const summaryMatch = text.split("ACTION_PLAN:")[0].replace("SUMMARY:", "").trim();
+const actionPlanMatch = text.split("ACTION_PLAN:")[1]?.trim() || "";
+
+// Return as an object with two separate fields
+return {
+  summary: summaryMatch,
+  actionPlan: actionPlanMatch
+}}
 
 export { generateInsights };

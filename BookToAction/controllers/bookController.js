@@ -44,14 +44,14 @@ const generateBookInsights = async (req, res) => {
   const book = await getBookById(id);
 
   // Call the AI service with the book's information
-  const insightsText = await generateInsights(
+  const insights = await generateInsights(
     book.title,
     book.author,
     book.notes
   );
 
   // Save the AI response back to the database
-  await saveInsights(id, insightsText, insightsText);
+  await saveInsights(id, insights.summary, insights.actionPlan);
 
   // Redirect back to the book detail page
   res.redirect('/books/${id}');

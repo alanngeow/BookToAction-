@@ -1,5 +1,9 @@
 <%- include("../partials/header") %>
 
+<!-- Load compiled React CSS -->
+<link rel="stylesheet" href="/react/main.css">
+<script type="module" src="/react/main.js"></script>
+
 <section class="container">
 
   <h1><%= book.title %></h1>
@@ -22,7 +26,23 @@
 
     <h2>30-Day Action Plan</h2>
     <p><%= book.action_plan %></p>
+
+        <!-- 
+      React mounts here.
+      This div is where the HabitTracker component will appear.
+    -->
+    <div id="habit-tracker-root"></div>
+
+
+<script>
+  window.__ACTION_PLAN__ = "<%= encodeURIComponent(book.action_plan) %>";
+</script>
+
+    <!-- Load the compiled React component -->
+<script type="module" src="/react/assets/main-Bq1pW3Mf.js"></script>
   <% } %>
+
+
 
   <a href="/dashboard" class="btn">Back to Dashboard</a>
 
