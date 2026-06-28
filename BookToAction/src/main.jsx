@@ -14,17 +14,12 @@ import HabitTracker from "./HabitTracker";
   3. This file reads it and passes it to HabitTracker as a prop
 */
 
-// Read the action plan passed from Express via bookDetail.ejs
-const actionPlan = window.__ACTION_PLAN__ 
-  ? decodeURIComponent(window.__ACTION_PLAN__) 
-  : "";
+// Read bookId passed from Express via bookDetail.ejs
+const bookId = window.__BOOK_ID__;
 
-// Find the div where React should mount
 const rootElement = document.getElementById("habit-tracker-root");
 
-// Only mount if both the div and action plan exist
-// This prevents errors on pages without the habit tracker
-if (rootElement && actionPlan) {
+if (rootElement && bookId) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(<HabitTracker actionPlan={actionPlan} />);
+  root.render(<HabitTracker bookId={bookId} />);
 }

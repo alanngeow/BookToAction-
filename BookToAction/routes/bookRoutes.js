@@ -7,7 +7,7 @@
 // Express is required to use express.Router()
 import express from "express";
 
-import { getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController } from "../controllers/bookController.js";
+import { getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController, toggleHabitController, getHabits } from "../controllers/bookController.js";
 
 
 const router = express.Router();
@@ -23,5 +23,9 @@ router.get("/books/:id", getBookDetail);
 router.post("/books/:id/generate", generateBookInsights);
 
 router.post("/books/:id/delete", deleteBookController);
+
+router.get("/api/books/:id/habits", getHabits);
+
+router.post("/api/books/:id/habits/:habitId/toggle", toggleHabitController)
 
 export default router;

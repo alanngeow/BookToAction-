@@ -1,5 +1,6 @@
 // Import model functions
-import {getAllBooks, getBookById, createBook, saveInsights, deleteBook} from "../models/bookModel.js";
+import { getAllBooks, getBookById, createBook, saveInsights, deleteBook } from "../models/bookModel.js";
+import { getHabitsByBookId, saveHabits, toggleHabit } from "../models/habitModel.js";
 import {generateInsights} from "../services/aiService.js";
 
 // Renders home page
@@ -53,6 +54,13 @@ const generateBookInsights = async (req, res) => {
   // Save the AI response back to the database
   await saveInsights(id, insights.summary, insights.actionPlan);
 
+    // Parse action plan into individual habits and save to database
+  const habitLines = insights.actionPlan
+    .split("\n")
+    .filter(line => line.trim() !== "");
+
+  await saveHabits(id, habitLines);
+  
   // Redirect back to the book detail page
  res.redirect(`/books/${id}`);
 
@@ -65,5 +73,20 @@ const deleteBookController = async (req, res) => {
   res.redirect("/dashboard");
 };
 
+// GET /api/books/:id/habits
+// Returns all habits for a book as JSON
+const getHabits = async (req, res) => {
+  const id = req.params.id;
+  const habits = await getHabitsByBookId(id);
+  res.json(habits);  // sends JSON instead of rendering a view
+};
 
-export { getHome, getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController };
+// POST /api/books/:id/habits/:habitId/toggle
+// Toggles a habit's completed status
+const toggleHabitController = async (req, res) => {
+  const habitId = req.params.habitId;
+  const habit = await toggleHabit(habitId);
+  res.json(habit);  // sends back the updated habit as JSON
+};
+
+export { getHome, getDashboard, getBookDetail, getAddBook, postCreateBook, generateBookInsights, deleteBookController, getHabits, toggleHabitController };
