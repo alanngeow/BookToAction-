@@ -1,8 +1,6 @@
 <%- include("../partials/header") %>
 
-<!-- Load compiled React CSS -->
 <link rel="stylesheet" href="/react/main.css">
-<script type="module" src="/react/main.js"></script>
 
 <section class="container">
 
@@ -12,14 +10,12 @@
   <h2>Your Notes</h2>
   <p><%= book.notes %></p>
 
-  <!-- Only show button if AI insights don't exist yet -->
   <% if (!book.ai_summary) { %>
     <form action="/books/<%= book.id %>/generate" method="POST">
       <button type="submit" class="btn">Generate Insights</button>
     </form>
   <% } %>
 
-  <!-- Only show insights if they exist -->
   <% if (book.ai_summary) { %>
     <h2>AI Summary</h2>
     <p><%= book.ai_summary %></p>
@@ -27,25 +23,16 @@
     <h2>30-Day Action Plan</h2>
     <p><%= book.action_plan %></p>
 
-        <!-- 
-      React mounts here.
-      This div is where the HabitTracker component will appear.
-    -->
-    <div id="habit-tracker-root"></div>
+    <!-- React mounts here -->
+    <div id="habit-tracker-root" data-book-id="<%= book.id %>"></div>
 
-
-<script>
-  window.__BOOK_ID__ = <%= book.id %>;
-</script>
-
-    <!-- Load the compiled React component -->
-<script type="module" src="/react/assets/main-Bq1pW3Mf.js"></script>
+    <!-- Load React AFTER the div exists -->
+    <script type="module" src="/react/main.js"></script>
   <% } %>
 
-<!-- Delete button -->
-<form action="/books/<%= book.id %>/delete" method="POST">
-  <button type="submit" class="btn btn-danger">Delete Book</button>
-</form>
+  <form action="/books/<%= book.id %>/delete" method="POST">
+    <button type="submit" class="btn btn-danger">Delete Book</button>
+  </form>
 
   <a href="/dashboard" class="btn">Back to Dashboard</a>
 
